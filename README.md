@@ -14,3 +14,4 @@ For example, to get homework 2-1 RegFile, type following commands
 git checkout 2-1
 ```
 
+Then compress all files in the current dictory and upload it to CG.
