@@ -1,6 +1,6 @@
 # USTB Computer Organization Course Design
 
-`master`
+`2-7`
 
 ## Usage
 
