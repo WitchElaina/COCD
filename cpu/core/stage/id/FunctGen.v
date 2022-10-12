@@ -20,6 +20,8 @@ module FunctGen(
       `OP_JAL: funct <= `FUNCT_OR;
       // Extends
       `OP_ADDI: funct <= `FUNCT_ADD;
+      `OP_ANDI: funct <= `FUNCT_AND;
+      `OP_ORI: funct <= `FUNCT_OR;
       default: funct <= `FUNCT_NOP;
     endcase
   end

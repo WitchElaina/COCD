@@ -22,7 +22,7 @@ module RegGen(
       // arithmetic & logic (immediate)
       `OP_ADDIU,
       // extends
-      `OP_ADDI,
+      `OP_ADDI, `OP_ANDI, `OP_ORI,
       // memory accessing
       `OP_LB, `OP_LW, `OP_LBU: begin
         reg_read_en_1 <= 1;
@@ -56,7 +56,8 @@ module RegGen(
       // immediate
       `OP_ADDIU, `OP_LUI,
       // extends
-      `OP_ADDI: begin
+      `OP_ADDI, `OP_ANDI, `OP_ORI:
+      begin
         reg_write_en <= 1;
         reg_write_addr <= rt;
       end

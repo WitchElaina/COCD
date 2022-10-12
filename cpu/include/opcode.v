@@ -26,5 +26,10 @@
 
 // extends
 `define OP_ADDI       6'b001000
+`define OP_ANDI       6'b001100
+`define OP_ORI        6'b001001
+
+
+
 
 `endif  // TINYMIPS_OPCODE_V_

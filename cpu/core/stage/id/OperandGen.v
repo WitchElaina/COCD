@@ -55,7 +55,7 @@ module OperandGen(
       // arithmetic & logic (immediate)
       `OP_ADDIU,
       // extends
-      `OP_ADDI,
+      `OP_ADDI, `OP_ANDI, `OP_ORI,
       // memory accessing
       `OP_LB, `OP_LW, `OP_LBU, `OP_SB, `OP_SW: begin
         operand_2 <= sign_ext_imm;

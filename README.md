@@ -10,8 +10,8 @@
 | 2    | SUB      | 2        | R型运算指令          | 0|
 | 3    | NOR      | 2        | R型运算指令          | 0|
 | 4    | ADDI     | 2        | I型运算指令/加法指令 | 0|
-| 5    | ANDI     | 2        | I型运算指令          | x|
-| 6    | ORI      | 2        | I型运算指令          | x|
+| 5    | ANDI     | 2        | I型运算指令          | 0|
+| 6    | ORI      | 2        | I型运算指令          | 0|
 | 7    | XORI     | 2        | I型运算指令          | x|
 | 8    | SLTI     | 2        | I型运算指令          | x|
 | 9    | SLTIU    | 2        | I型运算指令          | x|
@@ -32,7 +32,7 @@
 
 > x - Not Extended, 0 - Developing, 1 - Complete
 
-Total Score: 0/10
+Total Score: 0(10)/10
 
 
 ## R-type
@@ -74,7 +74,7 @@ TODO
 
 ## I-type
 
-### ADDI
+### ADDI, ANDI, ORI
 
 I-type指令有op字段，首先修改`opcode.v`添加对应的字段定义
 
@@ -90,6 +90,13 @@ I-type指令有op字段，首先修改`opcode.v`添加对应的字段定义
 ```
 
 在`OperandGen.v`中完成操作数的取出
+
+```verilog
+// TODO
+```
+
+在`FunctGen.v`中设置对应的funct字段
+
 
 ```verilog
 // TODO
