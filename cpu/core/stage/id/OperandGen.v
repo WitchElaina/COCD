@@ -49,13 +49,16 @@ module OperandGen(
   // generate operand_2
   always @(*) begin
     case (op)
-      `OP_LUI: begin
+      `OP_LUI, 
+      // extends
+      `OP_ANDI, `OP_ORI:
+      begin
         operand_2 <= zero_ext_imm_hi;
       end
       // arithmetic & logic (immediate)
       `OP_ADDIU,
       // extends
-      `OP_ADDI, `OP_ANDI, `OP_ORI,
+      `OP_ADDI,
       // memory accessing
       `OP_LB, `OP_LW, `OP_LBU, `OP_SB, `OP_SW: begin
         operand_2 <= sign_ext_imm;
