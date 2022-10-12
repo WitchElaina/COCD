@@ -3,13 +3,6 @@
 
 // r-type (SPECIAL)
 `define OP_SPECIAL    6'b000000
-// Extend
-// ADD
-// SUB
-// NOR
-`define OP_ADD 6'b100000
-`define OP_SUB 6'b100010
-`define OP_NOR 6'b100111
 
 // j-type
 `define OP_JAL        6'b000011

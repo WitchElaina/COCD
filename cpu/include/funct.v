@@ -23,6 +23,16 @@
 `define FUNCT_SLT       6'b101010
 `define FUNCT_SLTU      6'b101011
 
+// Extend
+// ADD
+// SUB
+// NOR
+`define FUNCT_ADD 6'b100000
+`define FUNCT_SUB 6'b100010
+`define FUNCT_NOR 6'b100111
+// JR
+`define FUNCT_JR 6'b001000
+
 // NOTE: improper usage
 // it's NOP because '111111' is meaningless in current MIPS ISA
 // but we can't make sure it won't be used in a future version

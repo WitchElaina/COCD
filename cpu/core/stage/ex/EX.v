@@ -79,6 +79,10 @@ module EX(
       `FUNCT_SLLV: result <= operand_2 << operand_1[4:0];
       `FUNCT_SRLV: result <= operand_2 >> operand_1[4:0];
       `FUNCT_SRAV: result <= ({32{operand_2[31]}} << (6'd32 - {1'b0, operand_1[4:0]})) | operand_2 >> operand_1[4:0];
+      // extends
+      `FUNCT_ADD: result <= operand_1 + operand_2;
+      `FUNCT_SUB: result <= operand_1 - operand_2;
+      `FUNCT_NOR: result <= ~(operand_1 | operand_2);
       default: result <= 0;
     endcase
   end
