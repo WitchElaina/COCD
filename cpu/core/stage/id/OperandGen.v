@@ -28,7 +28,10 @@ module OperandGen(
       // immediate
       `OP_ADDIU, `OP_LUI,
       // memory accessing
-      `OP_LB, `OP_LW, `OP_LBU, `OP_SB, `OP_SW: begin
+      `OP_LB, `OP_LW, `OP_LBU, `OP_SB, `OP_SW,
+      // extends
+      `OP_ADDI:
+      begin
         operand_1 <= reg_data_1;
       end
       `OP_SPECIAL: begin
@@ -51,6 +54,8 @@ module OperandGen(
       end
       // arithmetic & logic (immediate)
       `OP_ADDIU,
+      // extends
+      `OP_ADDI,
       // memory accessing
       `OP_LB, `OP_LW, `OP_LBU, `OP_SB, `OP_SW: begin
         operand_2 <= sign_ext_imm;

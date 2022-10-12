@@ -18,6 +18,8 @@ module FunctGen(
       `OP_LB, `OP_LBU, `OP_LW,
       `OP_SB, `OP_SW, `OP_ADDIU: funct <= `FUNCT_ADDU;
       `OP_JAL: funct <= `FUNCT_OR;
+      // Extends
+      `OP_ADDI: funct <= `FUNCT_ADD;
       default: funct <= `FUNCT_NOP;
     endcase
   end

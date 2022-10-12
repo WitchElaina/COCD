@@ -24,4 +24,7 @@
 `define OP_SB         6'b101000
 `define OP_SW         6'b101011
 
+// extends
+`define OP_ADDI       6'b001000
+
 `endif  // TINYMIPS_OPCODE_V_
