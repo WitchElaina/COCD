@@ -30,7 +30,7 @@ module OperandGen(
       // memory accessing
       `OP_LB, `OP_LW, `OP_LBU, `OP_SB, `OP_SW,
       // extends
-      `OP_ADDI:
+      `OP_ADDI,`OP_ANDI,`OP_ORI:
       begin
         operand_1 <= reg_data_1;
       end
