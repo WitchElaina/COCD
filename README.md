@@ -2,23 +2,23 @@
 
 `extend`
 
-## Extend Insturction On CDE
+## Info
 
 | 序号 | 指令名称 | 指令分值 | 指令分组             | 实现|
 | :--- | :------- | :------- | -------------------- | --- |
-| 1    | ADD      | 2        | R型运算指令/加法指令 | 0|
-| 2    | SUB      | 2        | R型运算指令          | 0|
-| 3    | NOR      | 2        | R型运算指令          | 0|
-| 4    | ADDI     | 2        | I型运算指令/加法指令 | 0|
-| 5    | ANDI     | 2        | I型运算指令          | 0|
-| 6    | ORI      | 2        | I型运算指令          | 0|
+| 1    | ADD      | 2        | R型运算指令/加法指令 | 1|
+| 2    | SUB      | 2        | R型运算指令          | 1|
+| 3    | NOR      | 2        | R型运算指令          | 1|
+| 4    | ADDI     | 2        | I型运算指令/加法指令 | 1|
+| 5    | ANDI     | 2        | I型运算指令          | 1|
+| 6    | ORI      | 2        | I型运算指令          | 1|
 | 7    | XORI     | 2        | I型运算指令          | x|
 | 8    | SLTI     | 2        | I型运算指令          | x|
 | 9    | SLTIU    | 2        | I型运算指令          | x|
 | 10   | SRL      | 2        | Shamt移位指令        | x|
 | 11   | SRA      | 2        | Shamt移位指令        | x|
 | 12   | J        | 2        | 直接跳转指令         | x|
-| 13   | JR       | 3        | 直接跳转指令         | 0|
+| 13   | JR       | 3        | 直接跳转指令         | 1|
 | 14   | LH       | 3        | 内存载入指令         | x|
 | 15   | LHU      | 3        | 内存载入指令         | x|
 | 16   | SH       | 3        | 内存存储指令         | x|
@@ -32,7 +32,7 @@
 
 > x - Not Extended, 0 - Developing, 1 - Complete
 
-Total Score: 0(10)/10
+Total Score: 10/10
 
 
 ## R-type
@@ -69,7 +69,31 @@ Total Score: 0(10)/10
 
 ### JR
 
-TODO
+与上一部分的三个R指令类似，首先在`funct.v`中按照tinyMIPS规定添加对应的语句的低六位`funct`值
+
+```verilog
+// JR
+`define FUNCT_JR 6'b001000
+```
+
+随后在`BranchGen.v`中修改跳转的case语句中的`OP_SPECIAL`分支
+
+```verilog
+    case (op)
+      `OP_SPECIAL: begin
+        if (funct == `FUNCT_JALR || funct == `FUNCT_JR) begin
+          branch_flag <= 1;
+          branch_addr <= reg_data_1;
+        end
+        else begin
+          branch_flag <= 0;
+          branch_addr <= 0;
+        end
+      end
+    // ...
+    endcase
+
+```
 
 
 ## I-type
@@ -81,25 +105,101 @@ I-type指令有op字段，首先修改`opcode.v`添加对应的字段定义
 ```verilog
 // extends
 `define OP_ADDI       6'b001000
+`define OP_ANDI       6'b001100
+`define OP_ORI        6'b001101
 ```
 
 随后在`RegGen.v`中生成寄存器读写控制信号
 
+以上三条I型指令需读取的操作数都在rs寄存器中，要写入结果的寄存器都为rt，因此需要设置对应的read_enable和write_enable，具体如下
+
 ```verilog
-// TODO
+ // generate read address
+  always @(*) begin
+    case (op)
+      // extends
+      `OP_ADDI, `OP_ANDI, `OP_ORI:
+      begin
+        reg_read_en_1 <= 1;
+        reg_read_en_2 <= 0;
+        reg_addr_1 <= rs;
+        reg_addr_2 <= 0;
+      end
+    // ...   
+    endcase
+  end
+
+  // generate write address
+  always @(*) begin
+    case (op)
+      // extends
+      `OP_ADDI, `OP_ANDI, `OP_ORI:
+      begin
+        reg_write_en <= 1;
+        reg_write_addr <= rt;
+      end
+      // ...
+    endcase
+  end
 ```
+
 
 在`OperandGen.v`中完成操作数的取出
 
+ADDI指令需要对立即数进行符号扩展，原始CPU代码中已经包含，此处只需要编写高位0扩展的代码即可
+
 ```verilog
-// TODO
+  wire[`DATA_BUS] zero_ext_imm_lo = {16'b0, imm};
+```
+
+完成后正常编写取出操作数的代码即可
+
+```verilog
+  // generate operand_1
+  always @(*) begin
+    case (op)
+      // extends
+      `OP_ADDI,`OP_ANDI,`OP_ORI:
+      begin
+        operand_1 <= reg_data_1;
+      end
+      // ...
+    endcase
+  end
+
+  // generate operand_2
+  always @(*) begin
+    case (op)
+      // extends
+      `OP_ANDI, `OP_ORI:
+      begin
+        operand_2 <= zero_ext_imm_lo;
+      end
+      
+      // extends
+      `OP_ADDI:
+      begin
+        operand_2 <= sign_ext_imm;
+      end
+      
+      //...
+    endcase
+  end
 ```
 
 在`FunctGen.v`中设置对应的funct字段
 
 
 ```verilog
-// TODO
+  always @(*) begin
+    case (op)
+      // Extends
+      `OP_ADDI: funct <= `FUNCT_ADD;
+      `OP_ANDI: funct <= `FUNCT_AND;
+      `OP_ORI: funct <= `FUNCT_OR;
+      // ...
+    endcase
+  end
 ```
 
 
