@@ -2,6 +2,23 @@
 
 `extend`
 
+## 搭建环境
+
+主流教程推荐使用虚拟机/WSL进行交叉编译，使用Windows下的Vivado进行仿真，可以，但。。如果你和我一样使用**macOS**或者Linux，该怎么办呢？我肯定不推荐装一个Ubuntu虚拟机交叉编译再装一个Windows虚拟机跑Vivado，一点也不优雅，如果你有类似需求请看下文，使用docker搭建整个实验环境，一个词，**优雅**！
+
+### 安装Vivado
+
+参考我的这篇博文
+
+> 教程地址：[如何在mac上优雅地使用Vivado](https://witchelaina.github.io/2022/10/13/vivado_on_mac/)
+
+### 配置交叉编译环境
+
+按上述教程安装好vivado之后，进入docker容器，这时你得到了一个能运行vivado的类WSL或mSL(macOS Sub Linux)，接下来的步骤和实验指导书中在WSL的操作没有任何区别，把gcc拖到共享文件夹里就行。
+
+> 如果你还不会，提issue，有其他macOS上跑USTB实验的需求也可以提，可以帮你优雅地解决（尽量）
+
+
 ## Info
 
 | 序号 | 指令名称 | 指令分值 | 指令分组             | 实现|
