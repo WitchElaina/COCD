@@ -10,7 +10,7 @@
 
 参考我的这篇博文
 
-> 教程地址：[如何在mac上优雅地使用Vivado](https://witchelaina.github.io/2022/10/13/vivado_on_mac/)
+> 教程地址：[如何在mac上优雅地使用Vivado](https://witchelaina.github.io/posts/vivado_on_mac/)
 
 ### 配置交叉编译环境
 
