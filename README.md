@@ -1,29 +1,23 @@
 # USTB Computer Organization Course Design
 
-`master`
+`teamwork`
 
-> **If you like this repo, STAR it plz.** 
+## Codes
 
-## Quick Use
+完整的代码已经有人实现过了，具体参考[https://github.com/umiskky/MIPS-CPU](https://github.com/umiskky/MIPS-CPU)，就不造轮子了，本仓库介绍一下使用方法就行。
 
-Switch to certain branch on github repo page, then click **download as zip** and enjoy!
+## Usage 
 
-## Usage
+下载代码
 
-You have to install `git` on your device first.
-
-### Extend CDE
-
-Use `git checkout extend` to get `mycpu` verilog project.
-
-### CG Homework
-
-Use `git checkout [branch_name]` to get the code you need in CG.
-
-For example, to get homework 2-1 RegFile, type following commands
-
-```git
-git checkout 2-1
+```shell
+git clone https://github.com/umiskky/MIPS-CPU
 ```
 
-Then compress all files in the current directory and upload it to CG.
+完成后参考`A07_实验环境使用方法.pdf`导入即可
+
+### 坑
+
+导入时可能会遇到IP无法导入，进入IP目录，将每个文件夹中**除`*.xci`外的文件全部删除**再导入即可
+
+
